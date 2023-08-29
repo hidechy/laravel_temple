@@ -568,7 +568,6 @@ class TempleController extends Controller
 
 
         return view('temple.map')
-            ->with('latLng', $latLng)
             ->with('latLngStr', implode("/", $latLng));
 
     }
