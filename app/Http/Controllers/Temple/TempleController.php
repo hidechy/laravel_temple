@@ -544,7 +544,6 @@ class TempleController extends Controller
     public function templemap($getdate)
     {
 
-
         $exDate = explode("-", $getdate);
         $result = DB::table('t_temple')
             ->where('year', $exDate[0])
@@ -552,14 +551,20 @@ class TempleController extends Controller
             ->where('day', $exDate[2])
             ->first();
 
-
-        $lat = $result->lat;
-        $lng = $result->lng;
-
-
         $latLng = [
-            "{$lat}|{$lng}"
+            "{$result->lat}|{$result->lng}"
         ];
+
+        if ($result->memo != "") {
+            $exMemo = explode("、", $result->memo);
+            foreach ($exMemo as $v) {
+                $result2 = DB::table('t_temple_latlng')
+                    ->where('temple', trim($v))
+                    ->first();
+
+                $latLng[] = "{$result2->lat}|{$result2->lng}";
+            }
+        }
 
 
         return view('temple.map')

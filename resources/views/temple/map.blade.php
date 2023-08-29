@@ -16,23 +16,21 @@
 <script type="text/javascript">
     function initMap() {
 
-        var lll0 = "{{ $latLng[0] }}";
-        var ll0 = lll0.split('|');
+        var latLngStr = "{{ $latLngStr }}";
+        var latLngList = latLngStr.split('/');
+
+        var center = latLngList[0].split('|');
 
         var opts = {
             zoom: 15,
-            center: new google.maps.LatLng(ll0[0], ll0[1])
+            center: new google.maps.LatLng(center[0], center[1])
         };
 
         var map = new google.maps.Map(document.getElementById("map"), opts);
 
-
         //====================// marker
-        var latLngStr = "{{ $latLngStr }}";
-        var exLLStr = latLngStr.split('/');
-
-        for (var i = 0; i < exLLStr.length; i++) {
-            var exVal = exLLStr[i].split('|');
+        for (var i = 0; i < latLngList.length; i++) {
+            var exVal = latLngList[i].split('|');
             new google.maps.Marker({
                 position: new google.maps.LatLng(exVal[0], exVal[1]),
                 map: map
