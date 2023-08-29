@@ -566,9 +566,24 @@ class TempleController extends Controller
             }
         }
 
+        $latAry = [];
+        $lngAry = [];
+
+        foreach ($latLng as $v) {
+            $exV = explode("|", trim($v));
+            $latAry[] = trim($exV[0]);
+            $lngAry[] = trim($exV[1]);
+        }
+
+        sort($latAry);
+        sort($lngAry);
 
         return view('temple.map')
-            ->with('latLngStr', implode("/", $latLng));
+            ->with('latLngStr', implode("/", $latLng))
+            ->with('minLat', $latAry[0])
+            ->with('maxLat', $latAry[count($latAry) - 1])
+            ->with('minLng', $lngAry[0])
+            ->with('maxLng', $lngAry[count($lngAry) - 1]);
 
     }
 

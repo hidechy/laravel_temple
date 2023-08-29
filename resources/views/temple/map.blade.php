@@ -38,6 +38,10 @@
         }
         //====================// marker
 
+        var min = new google.maps.LatLng({{ $minLat }}, {{ $minLng }});
+        var max = new google.maps.LatLng({{ $maxLat }}, {{ $maxLng }});
+        var latLngBounds = new google.maps.LatLngBounds(min, max);
+        map.fitBounds(latLngBounds);
 
     }
 </script>
